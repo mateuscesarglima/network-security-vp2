@@ -18,7 +18,7 @@ def load_private_key(keyPath):
 def verifyAuthenticity(file, pubKey, assinatura):
     with open(file, 'rb') as f:
         try:
-            content = f.read(pathlib.Path(file).stat().st_size - 256 - 1)
+            content = f.read()[:-256]
             return rsa.verify(content, assinatura, pubKey) == 'SHA-256'
         except:
             return False
@@ -39,15 +39,19 @@ while True:
         signedFilePath = input('Informe o caminho do arquivo assinado: ')
         publicKeyPath = input('Informe o caminho da chave publica: ')
         publicKey = load_public_key(publicKeyPath)
-        sign = open(signedFilePath, 'r').read().split('/')[1]
+        sign = open(signedFilePath, 'r').read()[-256:]
         signInBytes = bytes.fromhex(sign)
-        verifyAuthenticity(signedFilePath,
-                           pubKey=publicKey, assinatura=signInBytes)
+        result = verifyAuthenticity(signedFilePath,
+                                    pubKey=publicKey, assinatura=signInBytes)
 
-        if verifyAuthenticity:
-            print('Assinatura autentica')
+        if result:
+            print('*********************')
+            print('Assinatura autêntica')
+            print('*********************')
         else:
-            print('Assinatura náo é autêntica')
+            print('*********************')
+            print('Assinatura não é autêntica')
+            print('*********************')
 
     elif (command == 0):
         exit = str(input("Deseja realmente sair? (S/N): "))
