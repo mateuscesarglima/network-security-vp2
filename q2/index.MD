@@ -26,7 +26,7 @@ openssl rsa -in private.pem -pubout -out public.pem
 
 &nbsp;
 
-# Gerar um par de chaves SSH em uma máquina com MacOS ou Linux
+# Gerar um par de chaves SSH em uma máquina com MacOS, Linux e Windows
 
 1. Abra uma janela do terminal
 2. Insira esta linha de comando:
@@ -49,3 +49,13 @@ ssh-keygen -t rsa -N "<pass_phrase>" -b 2048 -C "<key_name>" -f <path/root_name>
 - **-b 2048**: Informa que é pra gerar uma chave de 2048 bits.
 - **-C"<key_name>"**: Um nome para identificar a chave.
 - **-f "<path/root_name>"**: O local em que o par de chaves será salvo e o noem da raiz dos arquivos.
+
+&nbsp;
+
+# [Criar um par de chaves windows](https://learn.microsoft.com/pt-br/dotnet/standard/assembly/create-public-private-key-pair)
+
+1.  O comando a seguir cria um par de chaves chamado sgKey.snk.
+
+```text
+sn -k sgKey.snk
+```
